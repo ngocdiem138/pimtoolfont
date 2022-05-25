@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Project from "./Project";
 import Customer from "./Customer";
 import Supplier from "./Supplier";
+import FeaturedProducts from "./ProjectEdit";
 
 const MainPage = (props) => {
 
@@ -49,7 +50,7 @@ const MainPage = (props) => {
             <Col xl={9}>
               <Routes>
                 <Route path="/projects" element={<ProjectList />} />
-                <Route path="/projects/:id" element={<Project />}></Route>
+                <Route path="/projects/:id" element={<FeaturedProducts />}></Route>
                 <Route path="customer" element={<Customer />}></Route>
                 <Route path="supplier" element={<Supplier />}></Route>
               </Routes>

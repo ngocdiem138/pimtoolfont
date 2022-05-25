@@ -31,8 +31,8 @@ class Project extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const client = await (await fetch('/clients/${this.props.match.params.id}')).json();
-            this.setState({item: client});
+            const project = await (await fetch('/projects/${this.props.match.params.id}')).json();
+            this.setState({item: project});
         }
     }
     handleChange(event) {
@@ -76,7 +76,7 @@ class Project extends Component {
                     <Row>
                         <Col xl={11}>
                             <p className="name-project">
-                                <h1>{title}</h1>
+                                <h1>{item.id}</h1>
                             </p>
                         </Col>
                     </Row>
