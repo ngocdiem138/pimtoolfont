@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, ButtonGroup, Table } from 'reactstrap';
 import { Container, Row, Col, Nav, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import '../Style/ProjectList.css';
 class ProjectList extends Component {
 
     constructor(props) {
@@ -63,44 +64,48 @@ class ProjectList extends Component {
                     </Row>
                     <hr></hr>
                     <Row>
-                        <div class="container">
-                            <div class="row">
-                                <div className="col-md-5">
-                                    <input>
-                                    </input>
-                                </div>
-                                <div className="col-md-3">
-                                    <input>
-                                    </input>
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button submit" class="btn btn-primary">Search Project</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-light">Reset Search</button>
+                        <Col xl={11}>
+                            <div class="container">
+                                <div class="row">
+                                    <div className="col-md-5">
+                                        <input className='form-control'>
+                                        </input>
+                                    </div>
+                                    <div className="col-md-3">
+                                        <input className='form-control'>
+                                        </input>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button submit" class="btn btn-primary">Search Project</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-light">Reset Search</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Col>
                     </Row>
 
                     <Row>
+                        <Col xl={11}>
                         {/* <div class="container"> */}
-                            <Table className="mt-4">
-                                <thead>
-                                    <tr>
-                                        <th width="5%"></th>
-                                        <th width="15%">Number</th>
-                                        <th width="40%">Name</th>
-                                        <th width="10%">Status</th>
-                                        <th width="20%">Customer</th>
-                                        <th width="10%">Start Date</th>
-                                        <th width="10%">Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {projectList}
-                                </tbody>
-                            </Table>
+                        <Table className="col-md-12" bordered>
+                            <thead>
+                                <tr>
+                                    <th width="5%"></th>
+                                    <th width="15%">Number</th>
+                                    <th width="40%">Name</th>
+                                    <th width="10%">Status</th>
+                                    <th width="15%">Customer</th>
+                                    <th width="15%">Start Date</th>
+                                    <th width="10%">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {projectList}
+                            </tbody>
+                        </Table>
+                        </Col>
                         {/* </div> */}
                     </Row>
 

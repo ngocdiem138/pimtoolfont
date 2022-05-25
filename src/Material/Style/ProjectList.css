@@ -10,3 +10,12 @@ select, input, .container .btn{
     margin: 0px;
     
 }
+.col-md-5 {
+    padding-left: 0px!important;
+}
+.col-md-2{
+    padding-right: 0px;
+}
+.col-xl-11{
+    margin-bottom: 7vh;
+}

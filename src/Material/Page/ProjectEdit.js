@@ -8,23 +8,23 @@ import { Button,  FormGroup, Input, Label } from 'reactstrap';
 import en from '../lang/en';
 import '../Style/Project.css';
 import { withRouter } from '../../withRouter';
-const FeaturedProducts = () => {
-    const [projects, setProducts] = useState([]);
+const FeaturedProjects = () => {
+    const [projects, setProjects] = useState([]);
     useEffect(() => {
-        fetchProducts();
+        fetchProjects();
     }, []);
-    const fetchProducts = () => {
+    const fetchProjects = () => {
         axios
-            .get('http://localhost:3000/projects')
+            .get('http://localhost:8080/projects')
             .then((res) => {
                 console.log(res);
-                setProducts(res.data);
+                setProjects(res.data);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
-    // const { item } = projects;
+    const { item } = projects;
     const title = <h2>{item.id ? 'Edit Project information' : 'New Project'}</h2>;
     return (
         <div className="content project">
@@ -116,4 +116,4 @@ const FeaturedProducts = () => {
 
     );
 };
-export default FeaturedProducts;
+export default FeaturedProjects;

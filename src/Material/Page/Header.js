@@ -5,7 +5,7 @@ import '../Style/Header.css';
 import logo from '../Images/logo_elca.png';
 import counterpart from 'counterpart';
 // import en from '../lang/en';
-import {  useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 // counterpart.registerTranslations('en', en);
 
@@ -29,8 +29,8 @@ function Header() {
                     </Col>
                     <Col xl={2}>
                         <div className="lang">
-                            <button onClick={() => i18n.changeLanguage('fr')}>fr</button>
-                            <button onClick={() => i18n.changeLanguage('en')}>en</button>
+                            <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+                            <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
                         </div>
                     </Col>
                     <Col xl={1}>
