@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useParams, useHistory } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Translate from 'react-translate-component';
@@ -9,26 +9,29 @@ import en from '../lang/en';
 import '../Style/Project.css';
 import { withRouter } from '../../withRouter';
 const FeaturedProducts = () => {
-    const [projects, setProducts] = useState([]);
+    const { id } = useParams();
+    const { push } = useHistory();
+    const [projects, setProjects] = useState([]);
     useEffect(() => {
-        fetchProducts();
-    }, []);
-    const fetchProducts = () => {
-        axios
-            .get('http://localhost:3000/projects')
-            .then((res) => {
-                console.log(res);
-                setProducts(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-    // const { item } = projects;
-    const title = <h2>{item.id ? 'Edit Project information' : 'New Project'}</h2>;
+        const fetch = async () => {
+          try {
+            const { data } = await axios.get('http://localhost:3000/projects/${id}');
+            setProjects(data);
+          } catch (err) {
+            console.error(err);
+          }
+        };
+        fetch();
+      }, []);
     return (
         <div className="content project">
-            <Container fluid>
+            <article>
+      <h1>{projects.name}</h1>
+      <p>{projects.body}</p>
+      <br />
+      <button onClick={() => push("/")}>Go back</button>
+    </article>
+            {/* <Container fluid>
                 <Row>
                     <Col xl={11}>
                         <p className="name-project">
@@ -111,7 +114,7 @@ const FeaturedProducts = () => {
                         </div>
                     </Row>
                 </Form>
-            </Container>
+            </Container> */}
         </div>
 
     );
