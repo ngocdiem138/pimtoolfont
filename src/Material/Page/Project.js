@@ -146,7 +146,7 @@ class Project extends Component {
                                 <div class="row">
                                     <div className="col-md-7"></div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-light" tag={Link} to="/projects">Cancel</button>
+                                        <button type="button" class="btn btn-light" tag={Link} to="/projects/new">Cancel</button>
                                     </div>
                                     <div class="col-md-2">
                                         <button type="button submit" class="btn btn-primary">Create Project</button>
