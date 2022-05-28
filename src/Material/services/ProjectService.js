@@ -13,8 +13,11 @@ class ProjectService{
     }
 
     getProjectById(projectId){
-        return axios.get(PROJECT_BASE_REST_API_URL + '/' + projectId
-        );
+        return axios.get(PROJECT_BASE_REST_API_URL + '/' + projectId);
+    }
+
+    getProjectByKeyWordAndStatus(keyword, status){
+        return axios.get(PROJECT_BASE_REST_API_URL + '/search?' +'keyword='+  keyword + '&status=' +status);
     }
 
     updateProject(projectId, project){
