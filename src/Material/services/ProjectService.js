@@ -9,7 +9,7 @@ class ProjectService{
     }
 
     createProject(project){
-        return axios.post(PROJECT_BASE_REST_API_URL, project)
+        return axios.put(PROJECT_BASE_REST_API_URL+"/new", project)
     }
 
     getProjectById(projectId){
@@ -21,12 +21,13 @@ class ProjectService{
     }
 
     updateProject(projectId, project){
-        return axios.put(PROJECT_BASE_REST_API_URL + '/' +projectId, project);
+        return axios.put(PROJECT_BASE_REST_API_URL + '/update/' +projectId, project);
     }
 
     deleteProject(projectId){
-        return axios.delete(PROJECT_BASE_REST_API_URL + '/' + projectId);
+        return axios.delete(PROJECT_BASE_REST_API_URL + '/delete/' + projectId);
     }
+    
 }
 
 export default new ProjectService();

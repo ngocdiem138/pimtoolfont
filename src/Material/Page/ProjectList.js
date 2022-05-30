@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { Trash } from 'react-bootstrap-icons';
 import { useState, useEffect } from 'react';
 import ProjectService from '../services/ProjectService'
+
 const ProjectList = () => {
 
     const [projects, setProjects] = useState([]);
@@ -21,20 +22,43 @@ const ProjectList = () => {
         setKeyword(e.target.value)
     }
     async function handleSearch() {
-        const { data } = await ProjectService.getProjectByKeyWordAndStatus(keyword,status);
-        console.log(data)
-        setProjects(data)
+        const { data } = await ProjectService.getProjectByKeyWordAndStatus(keyword, status);
+        console.log(data);
+        setProjects(data);
+    }
+    function remove(number) {
+        ProjectService.deleteProject(number).then(() => ProjectService.getAllProjects().then((response) => { setProjects(response.data) }));
+    }
+    const [checked, setChecked] = useState([]);
+    // Add/Remove checked item from list
+    const handleCheck = (event) => {
+        var updatedList = [...checked];
+        if (event.target.checked) {
+            updatedList = [...checked, event.target.value];
+        } else {
+            updatedList.splice(checked.indexOf(event.target.value), 1);
+        }
+        setChecked(updatedList);
+        console.log(checked)
+    };
+    function removeSelected(checked) {
+        checked.map(item=>{
+            ProjectService.deleteProject(item).then(() => ProjectService.getAllProjects().then((response) => { setProjects(response.data) }));
+            var updatedList = [...checked];
+            updatedList.splice(checked.indexOf(item), 1);
+            setChecked(updatedList);
+        })
     }
     const projectList = projects.map(project => {
         return <tr key={project.id}>
-            <td><input type="checkbox"></input></td>
-            <td style={{ whiteSpace: 'nowrap' }}><Link to={"/projects/" + project.id} >{project.id}</Link></td>
+            <td><input type="checkbox" disabled={project.status == "NEW" ? false : true} value={project.id} onChange={handleCheck}></input></td>
+            <td style={{ whiteSpace: 'nowrap' }}><Link to={"/projects/" + project.id} >{project.number}</Link></td>
             <td>{project.name}</td>
             <td>{project.status}</td>
             <td>{project.customer}</td>
             <td>{project.startDate ? format(new Date(project.startDate), 'dd.MM.yyyy') : project.startDate}</td>
             <td>
-                {project.status == "NEW" ? <Button className='btn-delete' onClick={() => this.remove(project.id)}><Trash /></Button> : ""}
+                {project.status == "NEW" ? <Button className='btn-delete' onClick={() => remove(project.id)}><Trash /></Button> : ""}
             </td>
         </tr>
     });
@@ -60,8 +84,8 @@ const ProjectList = () => {
                                 </div>
                                 <div className="col-md-3">
                                     <select name="status" id="status" class="form-control" value={status}
-                                            onChange={(e) => setStatus(e.target.value)}>
-                                        <option value="" disabled selected hidden >Projects status</option>
+                                        onChange={(e) => setStatus(e.target.value)}>
+                                        <option value="" selected  >Projects status</option>
                                         <option value="NEW">NEW</option>
                                         <option value="PLA">Planned</option>
                                         <option value="INP">In progress</option>
@@ -95,6 +119,10 @@ const ProjectList = () => {
                             </thead>
                             <tbody>
                                 {projectList}
+                                <tr>
+                                    <td colspan="5">{checked.length} items selected</td>
+                                    <td colspan="2" >delete selected items <Button className='btn-delete' onClick={()=>removeSelected(checked)} ><Trash /></Button></td>
+                                </tr>
                             </tbody>
                         </Table>
                     </Col>

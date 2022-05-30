@@ -3,13 +3,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import ProjectService from '../services/ProjectService'
 import { Container, Row, Col, Nav, Form } from 'react-bootstrap';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
-
+import GroupService from '../services/GroupService'
 const AddProjectComponent = () => {
 
     const [number, setNumber] = useState('')
     const [name, setName] = useState('')
     const [customer, setCustomer] = useState('')
-    const [groupId, setGroupId] = useState('')
+    const [visaLeader, setVisaLeader] = useState('')
     const [members, setMembers] = useState('')
     const [status, setStatus] = useState('NEW')
     const [startDate, setStartDate] = useState('')
@@ -35,7 +35,7 @@ const AddProjectComponent = () => {
     const saveOrUpdateProject = (e) => {
         e.preventDefault();
 
-        const project = { number, name, customer, groupId, members, status, startDate, endDate }
+        const project = { number, name, customer, visaLeader, members, status, startDate, endDate }
 
         if (id) {
             ProjectService.updateProject(id, project).then((response) => {
@@ -45,6 +45,7 @@ const AddProjectComponent = () => {
             })
 
         } else {
+            project.number = parseInt(project.number);
             ProjectService.createProject(project).then((response) => {
 
                 console.log(response.data)
@@ -64,7 +65,7 @@ const AddProjectComponent = () => {
             setNumber(response.data.number)
             setName(response.data.name)
             setCustomer(response.data.customer)
-            setGroupId(response.data.groupId)
+            setVisaLeader(response.data.visaLeader)
             setMembers(response.data.members)
             setStatus(response.data.status)
             setStartDate(response.data.startDate)
@@ -73,7 +74,7 @@ const AddProjectComponent = () => {
             setNumber('')
             setName('')
             setCustomer('')
-            setGroupId('')
+            setVisaLeader('')
             setMembers('')
             setStatus("NEW")
             setStartDate('')
@@ -84,15 +85,17 @@ const AddProjectComponent = () => {
     }, [id])
 
     const title = <h2>{id != 'new' ? 'Edit Project information' : 'New Project'}</h2>;
+    const action = <div>{id != 'new' ? 'Edit Project' : 'Create Project'}</div>
 
-    // const title = () => {
-    //     alert(id)
-    //     if (id!='new') {
-    //         return <h2 className="text-center">Edit Project information</h2>
-    //     } else {
-    //         return <h2 className="text-center">New Project</h2>
-    //     }
-    // }
+
+    const [groups, setGroups] = useState([]);
+    useEffect(() => {
+        GroupService.getAllGroups().then((response) => { setGroups(response.data) });
+    }, [])
+    console.log("group", groups)
+    const groupList = groups.map(group => {
+        return<><option value={group}>{group}</option></>
+    });
 
     return (
         <div>
@@ -139,9 +142,10 @@ const AddProjectComponent = () => {
                                 <div class="row form-group">
                                     <div class="col-md-2 template required">Group</div>
                                     <div class="col-md-3">
-                                        <select name="group" id="group" class="form-control" value={groupId}
-                                            onChange={(e) => setGroupId(e.target.value)}>
-                                            <option value="new">New</option>
+                                        <select name="group" id="group" class="form-control" value={visaLeader}
+                                            onChange={(e) => setVisaLeader(e.target.value)}>
+                                                {groupList}
+                                            {/* <option value="new">New</option> */}
                                         </select>
                                     </div>
                                 </div>
@@ -156,7 +160,7 @@ const AddProjectComponent = () => {
                                     <div class="col-md-2 template required">Status</div>
                                     <div class="col-md-3">
                                         <select name="status" id="status" class="form-control" value={status}
-                                            onChange={(e) => setStatus(e.target.value)}>
+                                            onChange={(e) => setStatus(e.target.value)} disabled={id !== 'new' ? false : true} >
                                             <option value="NEW">NEW</option>
                                             <option value="PLA">Planned</option>
                                             <option value="INP">In progress</option>
@@ -184,7 +188,7 @@ const AddProjectComponent = () => {
                                         <Link to={"/projects/" + id} className="btn btn-light"> Cancel </Link>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button submit" class="btn btn-primary" >Create Project</button>
+                                        <button type="button submit" class="btn btn-primary" >{action}</button>
                                     </div>
                                 </div>
                             </div>
