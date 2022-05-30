@@ -10,7 +10,7 @@ const AddProjectComponent = () => {
     const [name, setName] = useState('')
     const [customer, setCustomer] = useState('')
     const [visaLeader, setVisaLeader] = useState('')
-    const [members, setMembers] = useState('')
+    const [members, setMembers] = useState([])
     const [status, setStatus] = useState('NEW')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -75,7 +75,7 @@ const AddProjectComponent = () => {
             setName('')
             setCustomer('')
             setVisaLeader('')
-            setMembers('')
+            setMembers([])
             setStatus("NEW")
             setStartDate('')
             setEndDate('')
@@ -94,7 +94,7 @@ const AddProjectComponent = () => {
     }, [])
     console.log("group", groups)
     const groupList = groups.map(group => {
-        return<><option value={group}>{group}</option></>
+        return<option value={group}>{group}</option>
     });
 
     return (
