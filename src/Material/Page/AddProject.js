@@ -90,7 +90,7 @@ const AddProjectComponent = () => {
 
     const [groups, setGroups] = useState([]);
     useEffect(() => {
-        GroupService.getAllGroups().then((response) => { setGroups(response.data) });
+        GroupService.getAllGroups().then((response) => { setGroups(response) });
     }, [])
     console.log("group", groups)
     const groupList = groups.map(group => {
@@ -112,7 +112,7 @@ const AddProjectComponent = () => {
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Row>
                             <div className="container">
-                                <div class="row form-group">
+                                {/* <div class="row form-group">
                                     <div class="col-md-2 template required">Project Number</div>
                                     <div class="col-md-3">
                                         <input type="text reset" class="form-control" disabled={id !== 'new' ? true : false} value={number}
@@ -120,7 +120,7 @@ const AddProjectComponent = () => {
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div class="row form-group ">
                                     <div class="col-md-2 template required">Project name</div>
                                     <div class="col-md-9">
@@ -168,7 +168,7 @@ const AddProjectComponent = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row form-group">
+                                {/* <div class="row form-group">
                                     <div class="col-md-2 template required">Start date</div>
                                     <div class="col-md-3"><input type="date" class="form-control" value={startDate}
                                         onChange={(e) => setStartDate(e.target.value)} required></input></div>
@@ -176,7 +176,7 @@ const AddProjectComponent = () => {
                                     <div class="col-md-2 template ">End date</div>
                                     <div class="col-md-3"><input type="date" class="form-control" value={endDate}
                                         onChange={(e) => setEndDate(e.target.value)}></input></div>
-                                </div>
+                                </div> */}
                             </div>
                         </Row>
                         <hr></hr>
